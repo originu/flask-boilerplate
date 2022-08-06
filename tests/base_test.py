@@ -1,4 +1,4 @@
-from app.engine import create_flask
+from app.app import create_flask
 from flask_testing import TestCase
 
 class BaseTestCase(TestCase):
