@@ -14,7 +14,7 @@ $ pip uninstall virtualenv
 ```    
 3. clone git
 ```
-$ git clone https://github.com/hjkim666/ODPbackend
+$ git clone https://github.com/originu/flask-boilerplate.git
 ```
 4. install modules of python
 ```
