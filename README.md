@@ -101,6 +101,7 @@ OpenAPI
 flask-monitoring dashboard      
 kafka-python   
 python-eureka-client(as a MSA)       
-scouter(as a APM) https://github.com/scouter-project/scouter/blob/master/README_kr.md
-
+scouter(as a APM)   
+https://github.com/scouter-project/scouter/blob/master/README_kr.md   
+https://pypi.org/project/scout-apm/   
 
