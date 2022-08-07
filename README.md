@@ -95,10 +95,10 @@ sqlalchemy
 
 
 # Backlog
-schedule
-pydantic
-OpenAPI
-flask-monitoring dashboard   
+schedule   
+pydantic   
+OpenAPI   
+flask-monitoring dashboard      
 kafka-python   
 python-eureka-client(as a MSA)       
 scouter(as a APM) https://github.com/scouter-project/scouter/blob/master/README_kr.md
