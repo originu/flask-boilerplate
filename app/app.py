@@ -1,51 +1,62 @@
 import os
+from pathlib import Path
+
 from flask import Flask
 
 from .config import DefaultConfig
 from .constant.app_constant import INSTANCE_DIRECTORY_PATH
-from .extension import main_db_extension
+from .extension import db, migrate
 from .resource import blueprints
+from .util import import_modules
 
 
-def create_flask(config=None, app_name="jedivin"):
+def create_app(config=None, app_name="jedivin"):
     """
-
     :param config:
     :param app_name:
     :return:
     """
-    flask = Flask(app_name, instance_path=INSTANCE_DIRECTORY_PATH, instance_relative_config=True)
-    configure_app(flask)
-    configure_blueprint(flask)
-    configure_extension(flask)
-    configure_error_handler(flask)
-    configure_log(flask)
-    return flask
+    app = Flask(app_name, instance_path=INSTANCE_DIRECTORY_PATH, instance_relative_config=True)
+    configure_app(app)
+    configure_blueprint(app)
+    configure_extension(app)
+    configure_error_handler(app)
+    configure_log(app)
+    return app
+
+
+def configure_app(app):
+    app.config.from_object(DefaultConfig())
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
     pass
 
 
-def configure_app(flask):
-    flask.config.from_object(DefaultConfig())
-    if not os.path.exists(flask.config['UPLOAD_FOLDER']):
-        os.makedirs(flask.config['UPLOAD_FOLDER'])
-    pass
+def configure_blueprint(app):
+    # import all of sub resource modules from this path
+    path = Path(__file__).parent.absolute()
+    import_modules(path, __package__, '*_resource.py')
+    import_modules(path, __package__, '*_hook.py')
 
-
-def configure_blueprint(flask):
     """Configure blueprints in views."""
     for blueprint in blueprints:
-        flask.register_blueprint(blueprint)
+        app.register_blueprint(blueprint)
     pass
 
 
-def configure_extension(flask):
-    main_db_extension.init_app(flask)
+def configure_extension(app):
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    # this is automatically to import entity modules so that you execute 'flask db migrate'
+    path = Path(__file__).parent.absolute()
+    import_modules(path, __package__, "*_entity.py")
     pass
 
 
-def configure_error_handler(flask):
+def configure_error_handler(app):
     pass
 
 
-def configure_log(flask):
+def configure_log(app):
     pass

@@ -1,8 +1,8 @@
-from app.app import create_flask
+from app.app import create_app
 
+"""
+https://flask-docs-kr.readthedocs.io/ko/latest
+"""
 if __name__ == '__main__':
-    # https://flask-docs-kr.readthedocs.io/ko/latest/errorhandling.html
-    flask_app = create_flask()
-    flask_app.run(debug=True, use_debugger=True, use_reloader=False)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app = create_app()
+    app.run(debug=True, use_debugger=True, use_reloader=False)

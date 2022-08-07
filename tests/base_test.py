@@ -1,10 +1,13 @@
-from app.app import create_flask
+from app.app import create_app
 from flask_testing import TestCase
+
+from app.config import TestConfig
+
 
 class BaseTestCase(TestCase):
 
     def create_app(self):
-        app = create_flask(TestConfig)
+        app = create_app(TestConfig)
         return app
 
     def init_data(self):

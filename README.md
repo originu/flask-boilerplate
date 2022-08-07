@@ -31,6 +31,26 @@ $ pip freeze > requirements.txt
 6. install docker-compose referring to https://docs.docker.com/compose/install/    
 
 
+
+
+
+# How to migrate and upgrade DB
+- for linux user
+```
+$ export FLASK_APP="main.py"
+
+$ flask db migrate
+$ flask db upgrade
+```
+
+- for windows user
+```
+> $env:FLASK_APP="main.py"
+> flask db migrate
+> flask db upgrade
+```
+
+
 # How to run
 ```
 $ docker-compose -f ./docker/backend.xml up -d
@@ -41,6 +61,23 @@ $ python main.py
 $ curl http://localhost:5000/api/server/version
 ```
 #  
+
+# How to setup for flask-migrate based on alembic
+- for linux user
+```
+$ export FLASK_APP="main.py"
+$ flask db init
+```
+
+- for windows user
+```
+> $env:FLASK_APP="main.py"
+> flask db init
+```
+
+
+
+
 
 # Stack
 docker   
@@ -55,11 +92,12 @@ flask
 flask-jwt-extended   
 flask-migrate   
 sqlalchemy   
+
+
+# Backlog
 schedule
-
-
-
-# Backlog 
+pydantic
+OpenAPI
 flask-monitoring dashboard   
 kafka-python   
 python-eureka-client(as a MSA)       
