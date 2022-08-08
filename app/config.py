@@ -37,12 +37,6 @@ class DefaultConfig(BaseConfig):
 
     ENV = "development"     # development or production
 
-    MAIL_HOST = ""
-    FROM_ADDR = ""
-    TO_ADDRS = [""]
-    MAIL_USERNAME = ""
-    MAIL_PASSWORD = ""
-
     # Flask-Sqlalchemy: http://packages.python.org/Flask-SQLAlchemy/config.html
     SQLALCHEMY_ECHO = False
     # QLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be

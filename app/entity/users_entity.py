@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.extension import db
+from app.util import as_dictionary
 
 
 class UsersEntity(db.Model):
@@ -18,3 +19,6 @@ class UsersEntity(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.name
+
+    def as_dict(self):
+        return as_dictionary(self)

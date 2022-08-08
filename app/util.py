@@ -10,3 +10,11 @@ def import_modules(base_path, base_package, module_name):
         module_with_package_name = filepath_with_package_name[0: -3]
         import_module(module_with_package_name)
     pass
+
+
+def as_dictionary(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+
+def as_dictionary_except_for(self, fields):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
