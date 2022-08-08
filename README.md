@@ -32,22 +32,22 @@ $ pip freeze > requirements.txt
 
 
 
-
-
 # How to migrate and upgrade DB
+- common 
+    - app.py automatically finds modules of entity names *_entity.py and imports the modules so that flask migrate recognizes and generate a alembic file to a directory of migrations/versions
+    - for example, add an entity python module like user_entity.py in a directory of app/entity 
 - for linux user
 ```
 $ export FLASK_APP="main.py"
-
-$ flask db migrate
-$ flask db upgrade
+$ flask db migrate -m 'migration message'          <= after this command, a migration file will be in migration/versions.
+$ flask db upgrade                                 <= after this command, you will be able to see changes in DB
 ```
 
 - for windows user
 ```
 > $env:FLASK_APP="main.py"
-> flask db migrate
-> flask db upgrade
+> flask db migrate -m 'migration message'          <= after this command, a migration file will be in migration/versions.
+> flask db upgrade                                 <= after this command, you will be able to see changes in DB
 ```
 
 
@@ -60,7 +60,16 @@ $ python main.py
 ```
 $ curl http://localhost:5000/api/server/version
 ```
-#  
+
+# How to add new API 
+1. go to a directory of resource/api
+2. add new resource.py like server_resource.py. but the resource.py has to end to *_resource.py so that app.py imports all of *_resource.py files automatically.
+3. you can add some API in new resource.py
+
+# How to add new hook
+1. go to a directory of resource/hook
+2. add new hook.py like api_hook.py. but the hook.py has to end to *_hook.py so that app.py imports all of *_hook.py files automatically.
+3. you can add some hooks in new hook.py
 
 # How to setup for flask-migrate based on alembic
 - for linux user
