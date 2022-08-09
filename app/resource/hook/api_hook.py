@@ -1,4 +1,5 @@
 from flask import request
+from flask_jwt_extended import verify_jwt_in_request
 
 from app.resource import api_blueprint
 
@@ -8,15 +9,23 @@ def before_app_first_request():
     pass
 
 
+no_auth_paths = [
+    '/api/server/health',
+    '/api/server/version',
+    '/api/auth/signin',
+    '/api/auth/signup',
+    '/api/auth/signout',
+    '/api/auth/protected',
+]
+
+
 @api_blueprint.before_request
 def before_request():
-    # request.data
+    # check JWT authentication
+    is_no_auth_path = any(item in [request.path] for item in no_auth_paths)
+    if not is_no_auth_path:
+        verify_jwt_in_request()
     pass
-
-
-# @api_blueprint.after_request
-# def after_request(response):
-#     return response
 
 
 @api_blueprint.teardown_request

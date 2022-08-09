@@ -9,5 +9,6 @@ class TestServerResource(BaseTestCase):
             print(response.json)
             assert True
         else:
+            print(response.data)
             assert False
         pass

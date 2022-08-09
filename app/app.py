@@ -5,7 +5,7 @@ from pathlib import Path
 from flask import Flask
 
 from .config import DefaultConfig
-from .extension import db, migrate
+from .extension import db, migrate, jwt, bcrypt
 from .resource import blueprints
 from .util import import_modules
 
@@ -54,12 +54,20 @@ def configure_blueprint(app):
 
 
 def configure_extension(app):
+    # for sqlalchemy
     db.init_app(app)
-    migrate.init_app(app, db)
 
+    # for flask migration, alembic
+    migrate.init_app(app, db)
     # this is automatically to import entity modules so that you execute 'flask db migrate'
     path = Path(__file__).parent.absolute()
     import_modules(path, __package__, "*_entity.py")
+
+    # for flask jwt
+    jwt.init_app(app)
+
+    # for flask bcrypt
+    bcrypt.init_app(app)
     pass
 
 
