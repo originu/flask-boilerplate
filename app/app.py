@@ -1,10 +1,10 @@
+import logging
 import os
 from pathlib import Path
 
 from flask import Flask
 
 from .config import DefaultConfig
-from .constant.app_constant import INSTANCE_DIRECTORY_PATH
 from .extension import db, migrate
 from .resource import blueprints
 from .util import import_modules
@@ -16,17 +16,26 @@ def create_app(config=None, app_name="jedivin"):
     :param app_name:
     :return:
     """
-    app = Flask(app_name, instance_path=INSTANCE_DIRECTORY_PATH, instance_relative_config=True)
+    app = Flask(app_name, instance_path=config.INSTANCE_DIRECTORY_PATH, instance_relative_config=True)
     configure_app(app)
     configure_blueprint(app)
     configure_extension(app)
     configure_error_handler(app)
-    configure_log(app)
     return app
 
 
 def configure_app(app):
-    app.config.from_object(DefaultConfig())
+    # TO DO ITEM: fix configuration gracefully. kevin
+    # http://flask.pocoo.org/docs/config/#instance-folders
+    app.config.from_pyfile('production.cfg', silent=True)
+    if app.config:
+        # http://flask.pocoo.org/docs/api/#configuration
+        app.config.from_object(DefaultConfig)
+
+    if not os.path.exists(app.config['LOG_FOLDER']):
+        os.makedirs(app.config['LOG_FOLDER'])
+    logging.basicConfig(filename=os.path.join(app.config['LOG_FOLDER'], "debug.log"), level=logging.DEBUG)
+
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
     pass
@@ -55,8 +64,4 @@ def configure_extension(app):
 
 
 def configure_error_handler(app):
-    pass
-
-
-def configure_log(app):
     pass

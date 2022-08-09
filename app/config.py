@@ -1,7 +1,5 @@
 import os
 
-from app.constant.app_constant import INSTANCE_DIRECTORY_PATH
-
 
 class BaseConfig(object):
 
@@ -19,6 +17,8 @@ class BaseConfig(object):
     # http://flask.pocoo.org/docs/quickstart/#sessions
     # SECRET_KEY = 'secret key'
     SECRET_KEY = '3d7572d6b9aa4b438afa056cc9938df27f4aa89092b3db332a68c56522ae8224'
+
+    INSTANCE_DIRECTORY_PATH = os.path.join('/tmp', 'instance')
 
     LOG_FOLDER = os.path.join(INSTANCE_DIRECTORY_PATH, 'logs')
 
