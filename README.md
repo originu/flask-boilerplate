@@ -54,8 +54,10 @@ $ flask db upgrade                                 <= after this command, you wi
 # How to run
 ```
 $ docker-compose -f ./docker/backend.xml up -d
+$ docker-compose -f ./docker/kafka-ui.xml up -d
 $ docker ps --all
 $ python main.py
+open "http://localhost:8989" in a web browser so that you connect kafka-ui 
 ```
 ```
 $ curl http://localhost:5000/api/server/version
@@ -92,7 +94,9 @@ $ flask db init
 docker   
 docker-compose   
 mysql   
-mongodb   
+mongodb  
+redis  
+kafka  
 AWS Cloudwatch   
 AWS S3   
 gunicorn   
@@ -100,7 +104,7 @@ nginx
 flask   
 flask-jwt-extended   
 flask-migrate   
-sqlalchemy   
+sqlalchemy
 
 
 # Backlog
