@@ -5,7 +5,7 @@ from pathlib import Path
 from flask import Flask
 
 from .config import DefaultConfig
-from .extension import db, migrate, jwt, bcrypt
+from .extension import db, migrate, jwt, bcrypt, kafka_consumer_listener
 from .resource import blueprints
 from .util import import_modules
 
@@ -68,6 +68,9 @@ def configure_extension(app):
 
     # for flask bcrypt
     bcrypt.init_app(app)
+
+    # kafka
+    kafka_consumer_listener.init_app(app)
     pass
 
 

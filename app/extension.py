@@ -4,6 +4,8 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
+from app.inbound.kafka_message_listener import KafkaMessageListener
+
 """
 datasource
 """
@@ -26,3 +28,9 @@ jwt = JWTManager()
 encryption and decryption
 """
 bcrypt = Bcrypt()
+
+
+"""
+kafka
+"""
+kafka_consumer_listener = KafkaMessageListener()
